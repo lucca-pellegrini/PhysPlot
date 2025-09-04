@@ -1,6 +1,6 @@
-# Scientific Plotter
+# PhysPlot
 
-A Python library for creating professional scientific plots with regression analysis and LaTeX formatting.
+A Python library for creating professional physics plots with regression analysis and LaTeX formatting.
 
 ## Features
 
@@ -27,11 +27,11 @@ sudo apt-get install texlive-latex-base texlive-latex-extra texlive-fonts-recomm
 ## Quick Start
 
 ```python
-from scientific_plotter import ScientificPlotter, quadratic
+from physplot import PhysPlot, quadratic
 import numpy as np
 
 # Initialize plotter
-plotter = ScientificPlotter()
+plotter = PhysPlot()
 
 # Generate sample data
 x = np.linspace(0, 10, 50)
@@ -54,7 +54,7 @@ print(f"Parameters: {results['params']}")
 
 ## API Reference
 
-### ScientificPlotter Class
+### PhysPlot Class
 
 #### `plot_with_regression(data, func, **kwargs)`
 

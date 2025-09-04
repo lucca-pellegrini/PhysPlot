@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """
-Example usage of the Scientific Plotter API
+Example usage of the PhysPlot API
 
-This script demonstrates how to use the ScientificPlotter class for
+This script demonstrates how to use the PhysPlot class for
 regression analysis and professional plotting with various functions.
 """
 
 import numpy as np
 
-from scientific_plotter import (
-    ScientificPlotter,
+from physplot import (
+    PhysPlot,
     exponential,
     gaussian,
     linear,
@@ -24,7 +24,7 @@ def custom_function(x, a, b, c):
 
 def main():
     # Initialize the plotter
-    plotter = ScientificPlotter()
+    plotter = PhysPlot()
 
     # Set random seed for reproducible results
     np.random.seed(42)

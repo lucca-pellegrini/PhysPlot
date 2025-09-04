@@ -1,5 +1,5 @@
 """
-Scientific Plotting API with Regression Analysis
+PhysPlot - Physics Plotting Library with Regression Analysis
 
 A simple API for creating professional scientific plots with LaTeX formatting
 and regression analysis capabilities.
@@ -13,7 +13,7 @@ import numpy as np
 from scipy.optimize import curve_fit
 
 
-class ScientificPlotter:
+class PhysPlot:
     """
     A class for creating professional scientific plots with regression analysis.
     """
@@ -57,7 +57,7 @@ class ScientificPlotter:
         initial_guess: Optional[Tuple] = None,
         xlabel: str = "x",
         ylabel: str = "y",
-        title: str = "Scientific Plot with Regression",
+        title: str = "Physics Plot with Regression",
         filename: str = "plot.pdf",
         data_label: str = "Data",
         fit_label: str = "Fit",

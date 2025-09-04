@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')  # Use non-interactive backend
 import matplotlib.pyplot as plt
-from scientific_plotter import ScientificPlotter, quadratic
+from physplot import PhysPlot, quadratic
 
 # Override LaTeX settings for compatibility
 plt.rcParams.update({
@@ -17,7 +17,7 @@ plt.rcParams.update({
 
 def main():
     # Initialize plotter
-    plotter = ScientificPlotter()
+    plotter = PhysPlot()
     
     # Generate sample data
     np.random.seed(42)
