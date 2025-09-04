@@ -8,13 +8,7 @@ regression analysis and professional plotting with various functions.
 
 import numpy as np
 
-from physplot import (
-    PhysPlot,
-    exponential,
-    gaussian,
-    linear,
-    quadratic,
-)
+from physplot import PhysPlot, exponential, gaussian, linear, quadratic
 
 
 def custom_function(x, a, b, c):
