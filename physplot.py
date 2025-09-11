@@ -52,9 +52,9 @@ class PhysPlot:
 
     def plot_with_regression(
         self,
-        data: Union[Tuple[np.ndarray, np.ndarray], Tuple[Tuple, Tuple]],
+        data: Union[Tuple[np.ndarray, np.ndarray], Tuple[Tuple, Tuple], np.ndarray],
         func: Callable,
-        initial_guess: Optional[Tuple] = None,
+        initial_guess: Optional[Union[Tuple, np.ndarray]] = None,
         xlabel: str = "x",
         ylabel: str = "y",
         title: str = "Physics Plot with Regression",
@@ -64,17 +64,18 @@ class PhysPlot:
         show_equation: bool = True,
         param_names: Optional[Tuple[str, ...]] = None,
         **kwargs,
-    ) -> Dict[str, Any]:
+    ) -> Optional[Dict[str, Any]]:
         """
         Create a plot with regression analysis.
 
         Parameters:
         -----------
-        data : tuple of arrays or tuples
-            (x_values, y_values) where each can be numpy arrays or tuples
+        data : either a tuple of arrays or tuples
+            (x_values, y_values) where each can be numpy arrays or tuples, or a
+            single array of (x_value, y_value) tuples
         func : callable
             Function to fit. Should accept x as first parameter, then fit parameters
-        initial_guess : tuple, optional
+        initial_guess : tuple or np.ndarray, optional
             Initial guess for parameters. If None, will use ones.
         xlabel : str
             X-axis label (LaTeX formatting supported)
@@ -136,7 +137,7 @@ class PhysPlot:
         param_errors = np.sqrt(np.diag(pcov))
 
         # Create the plot
-        fig, ax = plt.subplots()
+        _, ax = plt.subplots()
 
         # Plot data points
         ax.scatter(x_data, y_data, alpha=0.7, label=data_label, zorder=5)
@@ -152,7 +153,7 @@ class PhysPlot:
         # Add equation to legend if requested
         if show_equation and param_names:
             equation_parts = []
-            for i, (param, name) in enumerate(zip(popt, param_names)):
+            for _, (param, name) in enumerate(zip(popt, param_names)):
                 equation_parts.append(f"{name} = {param:.4f}")
             equation_text = ", ".join(equation_parts)
             ax.text(
@@ -216,7 +217,7 @@ class PhysPlot:
         dict : Dictionary with results for each dataset
         """
 
-        fig, ax = plt.subplots()
+        _, ax = plt.subplots()
         results = {}
         colors = plt.cm.tab10(np.linspace(0, 1, len(datasets)))
 

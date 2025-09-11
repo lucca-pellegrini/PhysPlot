@@ -40,6 +40,10 @@ def main():
         param_names=("a", "b", "c"),
     )
 
+    if results is None:
+        print("Failed to perform plot with quadratic regression")
+        return
+
     print("Simple example completed!")
     print(f"Fitted parameters:")
     print(f"  a = {results['params'][0]:.3f} ± {results['params_std'][0]:.3f}")

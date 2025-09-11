@@ -47,6 +47,10 @@ def main():
         fit_label="Linear Fit",
     )
 
+    if results_linear is None:
+        print("Failed to perform plot with linear regression")
+        return
+
     print(f"True parameters: a = {true_a}, b = {true_b}")
     print(
         f"Fitted parameters: a = {results_linear['params'][0]:.3f} ± {results_linear['params_std'][0]:.3f}"
@@ -80,6 +84,10 @@ def main():
         fit_label="Quadratic Fit",
     )
 
+    if results_quad is None:
+        print("Failed to perform plot with quad regression")
+        return
+
     print(f"True parameters: a = {true_a}, b = {true_b}, c = {true_c}")
     print(
         f"Fitted parameters: a = {results_quad['params'][0]:.3f} ± {results_quad['params_std'][0]:.3f}"
@@ -109,12 +117,16 @@ def main():
         initial_guess=(10, -1, 1),  # Good initial guess for exponential
         xlabel=r"Time $t$ [s]",
         ylabel=r"Amplitude $A$ [V]",
-        title=r"Exponential Decay: $A = A_0 e^{-\lambda t} + A_{\infty}$",
+        title=r"Exponential Decay: $A = A_0 e^{-\\lambda t} + A_{\\infty}$",
         filename="exponential_decay.pdf",
-        param_names=(r"A_0", r"\lambda", r"A_{\infty}"),
+        param_names=(r"A_0", r"\\lambda", r"A_{\\infty}"),
         data_label="Measurements",
         fit_label="Exponential Fit",
     )
+
+    if results_exp is None:
+        print("Failed to perform plot with exp regression")
+        return
 
     print(f"True parameters: A₀ = {true_a}, λ = {true_b}, A∞ = {true_c}")
     print(
@@ -145,12 +157,16 @@ def main():
         initial_guess=(3, 0, 1),
         xlabel=r"Position $x$ [cm]",
         ylabel=r"Intensity $I$ [a.u.]",
-        title=r"Gaussian Profile: $I = I_0 \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$",
+        title=r"Gaussian Profile: $I = I_0 \\exp\\left(-\\frac{(x-\\mu)^2}{2\\sigma^2}\\right)$",
         filename="gaussian_fit.pdf",
-        param_names=(r"I_0", r"\mu", r"\sigma"),
+        param_names=(r"I_0", r"\\mu", r"\\sigma"),
         data_label="Data Points",
         fit_label="Gaussian Fit",
     )
+
+    if results_gauss is None:
+        print("Failed to perform plot with gauss regression")
+        return
 
     print(f"True parameters: I₀ = {true_a}, μ = {true_mu}, σ = {true_sigma}")
     print(
@@ -179,14 +195,18 @@ def main():
         data=(x_custom, y_custom),
         func=custom_function,
         initial_guess=(2, 1, 0),
-        xlabel=r"Angle $\theta$ [rad]",
+        xlabel=r"Angle $\\theta$ [rad]",
         ylabel=r"Signal $S$ [V]",
-        title=r"Sinusoidal Function: $S = A \sin(B\theta) + C$",
+        title=r"Sinusoidal Function: $S = A \\sin(B\\theta) + C$",
         filename="custom_sinusoidal.pdf",
         param_names=("A", "B", "C"),
         data_label="Signal Data",
         fit_label="Sinusoidal Fit",
     )
+
+    if results_custom is None:
+        print("Failed to perform plot with custom regression")
+        return
 
     print(f"True parameters: A = {true_a}, B = {true_b}, C = {true_c}")
     print(
