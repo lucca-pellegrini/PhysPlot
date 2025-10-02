@@ -25,7 +25,7 @@ class PhysPlot:
             {
                 "text.usetex": True,
                 "font.family": "serif",
-                "font.serif": ["Computer Modern"],
+                "font.serif": ["Palatino"],
                 "font.size": 12,
                 "axes.labelsize": 14,
                 "axes.titlesize": 16,
@@ -54,7 +54,7 @@ class PhysPlot:
         self,
         data: Union[Tuple[np.ndarray, np.ndarray], Tuple[Tuple, Tuple], np.ndarray],
         func: Callable,
-        initial_guess: Optional[Union[Tuple, np.ndarray]] = None,
+        initial_guess: Optional[Union[Tuple, np.ndarray, list]] = None,
         xlabel: str = "x",
         ylabel: str = "y",
         title: str = "Physics Plot with Regression",
@@ -63,6 +63,7 @@ class PhysPlot:
         fit_label: str = "Fit",
         show_equation: bool = True,
         param_names: Optional[Tuple[str, ...]] = None,
+        legend_loc: str = "best",
         **kwargs,
     ) -> Optional[Dict[str, Any]]:
         """
@@ -93,6 +94,8 @@ class PhysPlot:
             Whether to show the fitted equation in the legend
         param_names : tuple of str, optional
             Names for parameters (for equation display)
+        legend_loc : str
+            Location of legend ('best', 'upper right', 'upper left', 'lower right', 'lower left', etc.)
         **kwargs : dict
             Additional arguments passed to curve_fit
 
@@ -118,7 +121,7 @@ class PhysPlot:
 
         # Set default initial guess if not provided
         if initial_guess is None:
-            initial_guess = np.ones(n_params)
+            initial_guess = [1.0] * n_params
 
         # Perform curve fitting
         try:
@@ -153,17 +156,19 @@ class PhysPlot:
         # Add equation to legend if requested
         if show_equation and param_names:
             equation_parts = []
-            for _, (param, name) in enumerate(zip(popt, param_names)):
-                equation_parts.append(f"{name} = {param:.4f}")
+            for i, (param, name) in enumerate(zip(popt, param_names)):
+                param_std = param_errors[i]
+                equation_parts.append(f"${name} = {param:.4f} \\pm {param_std:.4f}$")
             equation_text = ", ".join(equation_parts)
             ax.text(
-                0.05,
                 0.95,
+                0.05,
                 equation_text,
                 transform=ax.transAxes,
-                fontsize=10,
-                verticalalignment="top",
-                bbox=dict(boxstyle="round", facecolor="wheat", alpha=0.8),
+                fontsize=12,
+                verticalalignment="bottom",
+                horizontalalignment="right",
+                bbox=dict(boxstyle="round,pad=0.5", facecolor="lightblue", alpha=0.9),
             )
 
         # Set labels and title
@@ -172,7 +177,7 @@ class PhysPlot:
         ax.set_title(title)
 
         # Add legend
-        ax.legend(frameon=True, fancybox=True, shadow=True)
+        ax.legend(loc=legend_loc, frameon=True, fancybox=True, shadow=True)
 
         # Tight layout and save
         plt.tight_layout()
@@ -219,7 +224,7 @@ class PhysPlot:
 
         _, ax = plt.subplots()
         results = {}
-        colors = plt.cm.tab10(np.linspace(0, 1, len(datasets)))
+        colors = ['blue', 'red', 'green', 'orange', 'purple', 'brown', 'pink', 'gray', 'olive', 'cyan'][:len(datasets)]
 
         for i, (data, func, label) in enumerate(zip(datasets, functions, labels)):
             x_data, y_data = data
