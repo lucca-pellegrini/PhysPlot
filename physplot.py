@@ -64,6 +64,12 @@ class PhysPlot:
         show_equation: bool = True,
         param_names: Optional[Tuple[str, ...]] = None,
         legend_loc: str = "best",
+        equation_x: float = 0.95,
+        equation_y: float = 0.05,
+        equation_fontsize: int = 12,
+        equation_verticalalignment: str = "bottom",
+        equation_horizontalalignment: str = "right",
+        equation_bbox: Optional[Dict[str, Any]] = None,
         **kwargs,
     ) -> Optional[Dict[str, Any]]:
         """
@@ -96,6 +102,18 @@ class PhysPlot:
             Names for parameters (for equation display)
         legend_loc : str
             Location of legend ('best', 'upper right', 'upper left', 'lower right', 'lower left', etc.)
+        equation_x : float
+            X position of the equation text box (in axes coordinates, 0-1)
+        equation_y : float
+            Y position of the equation text box (in axes coordinates, 0-1)
+        equation_fontsize : int
+            Font size for the equation text
+        equation_verticalalignment : str
+            Vertical alignment of the equation text ('top', 'center', 'bottom', etc.)
+        equation_horizontalalignment : str
+            Horizontal alignment of the equation text ('left', 'center', 'right', etc.)
+        equation_bbox : dict, optional
+            Dictionary of bbox properties for the equation text box. If None, defaults to {"boxstyle": "round,pad=0.5", "facecolor": "white", "alpha": 0.9}
         **kwargs : dict
             Additional arguments passed to curve_fit
 
@@ -160,15 +178,17 @@ class PhysPlot:
                 param_std = param_errors[i]
                 equation_parts.append(f"${name} = {param:.4f} \\pm {param_std:.4f}$")
             equation_text = ", ".join(equation_parts)
+            if equation_bbox is None:
+                equation_bbox = {"boxstyle": "round,pad=0.5", "facecolor": "white", "alpha": 0.9}
             ax.text(
-                0.95,
-                0.05,
+                equation_x,
+                equation_y,
                 equation_text,
                 transform=ax.transAxes,
-                fontsize=12,
-                verticalalignment="bottom",
-                horizontalalignment="right",
-                bbox=dict(boxstyle="round,pad=0.5", facecolor="lightblue", alpha=0.9),
+                fontsize=equation_fontsize,
+                verticalalignment=equation_verticalalignment,
+                horizontalalignment=equation_horizontalalignment,
+                bbox=equation_bbox,
             )
 
         # Set labels and title
